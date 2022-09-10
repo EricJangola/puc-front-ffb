@@ -29,7 +29,7 @@ export const Backoffice: React.FC = () => {
                     snapshot.docs.map(doc => ({
                         id: doc.id,
                         ...doc.data()
-                    }))
+                    }as TProduct))
                 )
             })
         , []);
