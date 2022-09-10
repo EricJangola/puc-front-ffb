@@ -24,7 +24,7 @@ const Header: React.FC<IHeaderProps> = ({ children }) => {
                     </ul>
                 </div>
             </nav>
-            <main className='container'>
+            <main className='container-fluid'>
                 <div>
                     {children}
                 </div>
