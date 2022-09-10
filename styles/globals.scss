@@ -1,4 +1,6 @@
-@import 'bootstrap/dist/css/bootstrap.css';
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap/dist/css/bootstrap-utilities.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
 @import 'tachyons/css/tachyons.min.css';
 
 html,
@@ -22,12 +24,25 @@ a {
   html {
     color-scheme: dark;
   }
+
   body {
     color: white;
     background: black;
   }
 }
 
-.card{
+.card {
   margin-bottom: 0.8rem;
+}
+
+.productsViewOrder {
+  background-color: rgba(248, 249, 250, 1);
+}
+
+.subtitle {
+  font-size: 1.1rem;
+}
+
+.icon{
+  pointer-events: none;
 }
