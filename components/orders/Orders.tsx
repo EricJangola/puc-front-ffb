@@ -13,12 +13,12 @@ export const Orders: React.FC = ({ products }: TOrderProps) => {
     const [orderList, setOrderList] = useState<TProduct[]>([]);
     const productsList: TProduct[] = products;
 
+    console.log('orderList', orderList);
+
     const handleClickProductToOrder = useCallback((event: React.MouseEvent) => {
-        console.log('::::::', productsList, (event.target as HTMLElement).getAttribute('data-id'));
         const itemId = (event.target as HTMLElement).getAttribute('data-id');
 
         const orderToInsert = productsList.find(item => parseInt(item.id) === parseInt(itemId));
-        console.log(orderToInsert);
         setOrderList([...orderList, orderToInsert]);
     }, [orderList, productsList]);
 
@@ -34,7 +34,7 @@ export const Orders: React.FC = ({ products }: TOrderProps) => {
                     {
                         productsList && productsList.map((item, i) => {
                             return (
-                                <div key={item.id} className="col-12 col-sm-4">
+                                <div key={item.id} className="col-12 col-sm-6">
                                     <div className='card'>
                                         <div className="card-body">
                                             <h5 className="card-title">{item.name}</h5>
@@ -52,7 +52,7 @@ export const Orders: React.FC = ({ products }: TOrderProps) => {
                     {
                         orderList && orderList.map((item, i) => {
                             return (
-                                <div key={item.id} className="col-12 col-sm-4">
+                                <div key={item.id} className="col-12 col-sm-6">
                                     <div className='card'>
                                         <div className="card-body">
                                             {item.name}

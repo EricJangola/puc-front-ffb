@@ -1,7 +1,12 @@
+import { useEffect } from 'react';
 import '../styles/globals.scss'
 
 function MyApp({ Component, pageProps }) {
-  console.log(Component, pageProps);
+
+  useEffect(() => {
+    import("bootstrap/dist/js/bootstrap");
+  }, [])
+
   return <Component {...pageProps} />
 }
 
