@@ -1,7 +1,5 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { uuidv4 } from '@firebase/util';
-import { addDoc, collection } from 'firebase/firestore';
-import { TOrder, TOrderPlace } from '../../api/order.type';
+import { collection, getDocs, doc, deleteDoc, query, onSnapshot } from 'firebase/firestore';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { TProduct } from "../../api/product.type";
 import { database } from './../../firebaseConfig';
 
@@ -17,17 +15,24 @@ const dbInstance = collection(database, 'orders');
 export const Backoffice: React.FC = () => {
 
     const [orderList, setOrderList] = useState<TProduct[]>([]);
-    const handleClickProductDone = useCallback(() => {
+    const handleClickProductDone = useCallback(async (event: React.MouseEvent) => {
+        const itemId = (event.target as HTMLElement).getAttribute('data-id');
 
+        const collectionById = doc(database, 'orders', itemId);
+        await deleteDoc(collectionById);
     }, []);
 
-    const returnRenderNoItem = () => {
-        return (
-            <div className="alert alert-warning" role="alert">
-                This is a warning alert—check it out!
-            </div>
-        )
-    }
+    useEffect(() =>
+        onSnapshot(dbInstance,
+            snapshot => {
+                setOrderList(
+                    snapshot.docs.map(doc => ({
+                        id: doc.id,
+                        ...doc.data()
+                    }))
+                )
+            })
+        , []);
 
     return (
         <div className=''>
@@ -42,12 +47,11 @@ export const Backoffice: React.FC = () => {
                             {
                                 orderList && orderList.map((item, i) => {
                                     return (
-                                        <div key={item.id} className="col-12 col-sm-6">
+                                        <div key={item.id} className="col-12">
                                             <div className='card'>
-                                                <div className="card-body">
-                                                    <h5 className="card-title">{item.name}</h5>
-                                                    <p className="card-text">{item.restaurant}</p>
-                                                    <button data-id={item.id} onClick={handleClickProductDone} className="btn btn-primary">Adicionar</button>
+                                                <div className="card-body d-flex align-items-center">
+                                                    <h5 className="card-title mb-0">Pedido: {item.id}</h5>
+                                                    <button data-id={item.id} onClick={handleClickProductDone} className="btn btn-warning ml-auto">Entregar Pedido</button>
                                                 </div>
                                             </div>
                                         </div>
