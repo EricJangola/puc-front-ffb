@@ -3,7 +3,7 @@ import { TProduct } from "../../api/product.type";
 import Header from "../../components/header/Header";
 import styles from './Orders.module.scss';
 
-import { app, database } from './../../firebaseConfig';
+import { database } from './../../firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
 import { TOrder, TOrderPlace } from '../../api/order.type';
 import { uuidv4 } from '@firebase/util';
